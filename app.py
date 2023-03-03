@@ -35,7 +35,7 @@ def index():
 
             filename = searchString + ".csv"
             fw = open(filename, "w")
-            headers = "Product, Customer Name, Rating, Heading, Comment \n"
+            headers = "Product, Name, Rating, CommentHead, Comment \n"
             fw.write(headers)
             reviews = []
             for commentbox in commentboxes:
@@ -48,7 +48,7 @@ def index():
 
                 try:
                     #rating.encode(encoding='utf-8')
-                    rating = commentbox.div.div.div.div.text
+                    rating = commentbox.div.div.find_all("div", {"class": "_3LWZlK _1BLPMq"})[0].text
 
 
                 except:
@@ -57,16 +57,15 @@ def index():
 
                 try:
                     #commentHead.encode(encoding='utf-8')
-                    commentHead = commentbox.div.div.div.p.text
+                    commentHead = commentbox.div.div.find_all("p", {"class": "_2-N8zT"})[0].text
 
                 except:
                     commentHead = 'No Comment Heading'
-                    logging.info(commentHead)
+                    logging.info("commentHead")
 
                 try:
-                    comtag = commentbox.div.div.find_all('div', {'class': ''})
                     #custComment.encode(encoding='utf-8')
-                    custComment = comtag[0].div.text
+                    custComment = commentbox.div.div.find_all("div", {"class": "t-ZTKy"})[0].text
 
                 except Exception as e:
                     logging.info(e)
